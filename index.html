@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MTN Recharge Card Generator</title>
+</head>
+<style>
+     body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        #result {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+        .container{
+            background: yellow;
+            border-top: 15px solid rgb(63, 63, 63) ;
+            border-radius: 10px;
+            height: 50vh;
+            width: 30%;
+            margin-top: 80px;
+            margin-left: 35%;
+            border-bottom: 30px solid  rgb(63, 63, 63);
+            box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.336);
+           
+            
+        }
+        input,label{
+            border: none;
+            height: 5vh;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button{
+            height: 5vh;
+            width: 25%;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            background:  rgb(63, 63, 63);
+            cursor: pointer;
+        }
+</style>
+<body>
+    <main>
+       <div class="container">
+        <h1>MTN Recharge Card Generator</h1>
+        <label for="amount">Select Amount:</label>
+        <select id="amount">
+            <option value="100">100</option>
+            <option value="200">200</option>
+            <option value="500">500</option>
+            <option value="1000">1000</option>
+        </select>
+        <button onclick="generateAirtime()">Generate Pin</button>
+        <div id="result"></div>
+        <h1>Load Airtime</h1>
+        <input type="text" id="load">
+        <button onclick="loadMtnCard()">Load Card</button>
+        
+       </div>
+
+    </main>
+</body>
+</html>
+<script>
+    let amount = document.getElementById("amount")
+    let load = document.getElementById("load")
+    
+    
+    function generateAirtime() {
+        let pin = Math.floor(Math.random() * 10000000000);
+        result.innerHTML = pin
+        alert(`You Have Generated Mtn Card  ${amount.value}`)
+        
+
+    }
+    function loadMtnCard() {
+        let pin = document.getElementById("result").innerHTML
+        if(!load.value.startsWith("*310") || !load.value.endsWith("#") || !load.value.includes(pin)) {
+            alert("Invalid Code")
+            load.value = ""
+        } else {
+            alert("You Have Recharged Your Line")
+            load.value = ""
+        }
+    }
+
+</script>
+
+
+
+
+
