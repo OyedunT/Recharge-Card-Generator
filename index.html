@@ -17,7 +17,6 @@
             margin-top: 20px;
         }
         .container{
-            background: yellow;
             border-top: 20px solid rgb(63, 63, 63) ;
             border-radius: 10px;
             height: 100vh;
@@ -26,8 +25,7 @@
             margin-left: 25%;
             border-bottom: 30px solid  rgb(63, 63, 63);
             box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.336);
-          
-           
+            animation: colorchange 10s ease infinite;
             
         }
         input,label{
@@ -45,11 +43,25 @@
             background:  rgb(63, 63, 63);
             cursor: pointer;
         }
+     @keyframes colorchange {
+    0%,100%{
+        background-color: yellow;
+    }
+    25%{
+        background-color: green;
+    }
+    50%{
+        background-color: red;
+    }
+    75%{
+        background-color: yellow;
+    } 
+} 
 </style>
 <body>
     <main>
        <div class="container">
-        <h1>MTN Recharge Card Generator</h1>
+        <h1>Recharge Card Generator</h1>
         <label for="">NETWORK PROVIDER</label>
         <select name="" id="network">
             <option value="MTN">MTN</option>
@@ -67,20 +79,20 @@
         <button onclick="generateAirtime()">Generate</button>
         <div id="result"></div>
         <h3>Load Airtime</h3>
-        <input type="text" id="load" placeholder="Enter *310*pin#">
+        <input type="text" id="load" value="*310*pin#">
         <button onclick="loadMtnCard()">Load Mtn</button>
         <h4 >Balance:<span id="balance"></span></h4>
-        <input type="text" id="load1" placeholder="Enter *310*pin#">
+        <input type="text" id="load1" value="*310*pin#">
         <button onclick="loadGloCard()">Load Glo</button>
         <h4 >Balance:<span id="balance1"></span></h4>
-        <input type="text" id="load2" placeholder="Enter *310*pin#">
+        <input type="text" id="load2" value="*310*pin#">
         <button onclick="loadAirtelCard()">Load Airtel</button>
         <h4 >Balance:<span id="balance2"></span></h4>
-        <input type="text" id="load3" placeholder="Enter *310*pin#">
+        <input type="text" id="load3" value="*310*pin#">
         <button onclick="load9MobileCard()">Load 9Mobile</button>
         <h4 >Balance:<span id="balance3"></span></h4>
        </div>
-
+         <div id="image"></div>
     </main>
 </body>
 </html>
@@ -99,10 +111,22 @@
     let bal1 = 0
     let bal2 = 0
     let bal3 = 0
+
     
-    
+    // To Generate 12 Numbers 
+
     function generateAirtime() {
-        let pin = Math.floor(Math.random() * 10000000000);
+        let pin = ""
+        for(let i = 0; i< 100; i++){
+            let randonNum = Math.floor(Math.random()*10)
+            if(randonNum % 2 == 0){
+                pin += randonNum
+            }
+if (pin.length == 12){
+    break
+}
+            
+        }
         result.innerHTML = pin
         alert(`You have generated ${network.value} of ${amount.value}`)
 
