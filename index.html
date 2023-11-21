@@ -6,93 +6,116 @@
     <title>MTN Recharge Card Generator</title>
 </head>
 <style>
-     body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 20px;
-        }
+   *{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    font-size: 10px;
+    background-color: rgb(247, 243, 243);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 10px;
+    
+}
+
+select{
+    border-radius: 3px;
+    font-size: 10px;
+}
+label{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 10px;
+}
 
         #result {
-            font-size: 24px;
+            font-size: 10px;
             margin-top: 20px;
         }
-        .container{
-            border-top: 20px solid rgb(63, 63, 63) ;
+        #container{
+            padding: 20px;
+            border-top: 10px solid rgb(63, 63, 63) ;
             border-radius: 10px;
-            height: 100vh;
-            width: 50%;
+            height: 80vh;
+            width: 25%;
             margin-top: 20px;
-            margin-left: 25%;
-            border-bottom: 30px solid  rgb(63, 63, 63);
-            box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.336);
-            animation: colorchange 10s ease infinite;
-            
+            margin-left: 10%;
+            border-bottom: 10px solid  rgb(63, 63, 63);
+            box-shadow: 10px 10px 10px 10px rgba(95, 94, 94, 90);
         }
         input,label{
             border: none;
             height: 5vh;
             cursor: pointer;
-            border-radius: 5px;
+            border-radius: 3px;
+            background-color: whitesmoke;
         }
+        input{
+              width: 150px; 
+              padding-left: 5px;
+          }
         button{
-            height: 5vh;
-            width: 20%;
-            border: none;
-            border-radius: 8px;
-            color: white;
-            background:  rgb(63, 63, 63);
-            cursor: pointer;
-        }
-     @keyframes colorchange {
-    0%,100%{
-        background-color: yellow;
-    }
-    25%{
-        background-color: green;
-    }
-    50%{
-        background-color: red;
-    }
-    75%{
-        background-color: yellow;
-    } 
-} 
+  padding: 0;
+  border-radius: 5px;
+  color: white;
+  font-family:  'Courier New', Courier, monospace;
+  background-color: rgb(90, 86, 86);
+  width: 30%;
+  font-size: 10px;
+}
+#result{
+    width: 100%;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+img{
+    width: 70px;
+    height: 60px;
+    
+}   
 </style>
 <body>
-    <main>
-       <div class="container">
+    <main id="container">
         <h1>Recharge Card Generator</h1>
+        <div >
         <label for="">NETWORK PROVIDER</label>
-        <select name="" id="network">
+        <select name="" id="network" onchange="changeColor()">
+            <option value="Choose network">--Choose Network--</option>
             <option value="MTN">MTN</option>
             <option value="GLO">GLO</option>
             <option value="AIRTEL">AIRTEL</option>
             <option value="9Mobile">9Mobile</option>
         </select>
-        <label for="amount">Select Amount:</label>
+        </div>
+    
+        <div>
+        <label for="amount">AMOUNT</label>
         <select id="amount">
+            <option value="">--Choose Amount--</option>
             <option value="100">100</option>
             <option value="200">200</option>
             <option value="500">500</option>
             <option value="1000">1000</option>
         </select>
         <button onclick="generateAirtime()">Generate</button>
-        <div id="result"></div>
-        <h3>Load Airtime</h3>
-        <input type="text" id="load" value="*310*pin#">
-        <button onclick="loadMtnCard()">Load Mtn</button>
-        <h4 >Balance:<span id="balance"></span></h4>
-        <input type="text" id="load1" value="*310*pin#">
-        <button onclick="loadGloCard()">Load Glo</button>
-        <h4 >Balance:<span id="balance1"></span></h4>
-        <input type="text" id="load2" value="*310*pin#">
-        <button onclick="loadAirtelCard()">Load Airtel</button>
-        <h4 >Balance:<span id="balance2"></span></h4>
-        <input type="text" id="load3" value="*310*pin#">
-        <button onclick="load9MobileCard()">Load 9Mobile</button>
-        <h4 >Balance:<span id="balance3"></span></h4>
        </div>
-         <div id="image"></div>
+       <h1 id="result"></h1>
+        <h3>Load Airtime</h3>
+         <input type="text" id="load" value="*310*pin#">
+        <button onclick="loadMtnCard()">Load </button>
+
+        <h4 >Balance:<span id="balance"></span></h4> 
+        <h4 >Balance:<span id="balance1"></span></h4>
+        <h4 >Balance:<span id="balance2"></span></h4>
+        <h4 >Balance:<span id="balance3"></span></h4>
+       <p id="image"></p>
     </main>
 </body>
 </html>
@@ -100,13 +123,14 @@
     let network = document.getElementById("network")
     let amount = document.getElementById("amount")
     let load = document.getElementById("load")
-    let load1 = document.getElementById("load1")
-    let load2 = document.getElementById("load2")
-    let load3 = document.getElementById("load3")
     let balance = document.getElementById("balance")
     let balance1 = document.getElementById("balance1")
     let balance2 = document.getElementById("balance2")
     let balance3 = document.getElementById("balance3")
+    let main = document.getElementById('container')
+    let section = document.getElementById('section')
+    let result = document.getElementById('result')
+    let img = document.getElementById('image')
     let bal = 0
     let bal1 = 0
     let bal2 = 0
@@ -116,87 +140,110 @@
     // To Generate 12 Numbers 
 
     function generateAirtime() {
-        let pin = ""
-        for(let i = 0; i< 100; i++){
-            let randonNum = Math.floor(Math.random()*10)
-            if(randonNum % 2 == 0){
-                pin += randonNum
-            }
-if (pin.length == 12){
-    break
-}
-            
+        let read = ""
+        for(let i = 0; i< 12; i++){
+             read += Math.floor(Math.random()*10)
         }
-        result.innerHTML = pin
+        if (network.value == "Choose network"){
+            alert(`Select a network provider`)
+        }else if(network.value == 'MTN'){
+        result.innerHTML = read
         alert(`You have generated ${network.value} of ${amount.value}`)
-
+        console.log(read);
+        }else if(network.value == 'GLO'){
+        result.innerHTML = read
+        alert(`You have generated ${network.value} of ${amount.value}`)
+        console.log(read); 
+    }else if(network.value == 'AIRTEL'){
+        result.innerHTML = read
+        alert(`You have generated ${network.value} of ${amount.value}`)
+        console.log(read); 
+    }else if(network.value == '9Mobile'){
+        result.innerHTML = read
+        alert(`You have generated ${network.value} of ${amount.value}`)
+        console.log(read); 
     }
+}
+
+        // Function for Networks To Change Color
+
+          function changeColor () {
+     if(network.value == ""){
+        main.style.backgroundColor = 'white'
+        img.innerHTML= ''
+     }else if (network.value == 'MTN' ){
+         main.style.backgroundColor = 'yellow'
+         image.innerHTML = `<img src="mtn.png" alt="">`
+         balance.innerHTML = `MTN Balance:${bal}`
+         balance1.innerHTML = ""
+         balance2.innerHTML = ""
+         balance3.innerHTML = ""
+     }else if(network.value == 'GLO'){
+         main.style.backgroundColor = 'lightgreen'
+         image.innerHTML = `<img src="GLO_Limited.png" alt="">`
+         balance1.innerHTML = `GLO Balance:${bal1}`
+         balance.innerHTML = ""
+         balance2.innerHTML = ""
+         balance3.innerHTML = ""
+     }else if (network.value == 'AIRTEL'){
+            main.style.backgroundColor = 'red'
+            image.innerHTML = `<img src="airtel.png" alt="">`
+         balance2.innerHTML = `Airtel Balance:${bal2}`
+         balance.innerHTML = ""
+         balance1.innerHTML = ""
+         balance3.innerHTML = ""
+        }else if (network.value == '9Mobile'){
+         main.style.backgroundColor = 'darkgreen'
+         image.innerHTML = `<img src="9mobile.png" alt="">`
+         balance3.innerHTML = `9Mobile Balance:${bal3}`
+         balance.innerHTML = ""
+         balance1.innerHTML = ""
+         balance2.innerHTML = ""
+     }else{
+         main.style.backgroundColor = 'white' 
+     }
+        
+     }
+
+    //    FUNCTIONS TO LOAD
+
     function loadMtnCard() {
-        let pin = document.getElementById("result").innerHTML
-        if(!load.value.startsWith("*310") || !load.value.endsWith("#") || !load.value.includes(pin)) {
-            alert("Invalid Code")
-            load.value = ""
-        } else if (network.value !== "MTN") {
-            alert("Invalid network provider")
-            load.value = ""
-        } else {
-            alert(`You have recharged ${network.value} of ${amount.value}`)
-            load.value = ""
-            result.innerHTML = ""
-            balance.innerHTML = `${bal += Number(amount.value)}`
-            
-        }
+        let read = document.getElementById("result").innerHTML
+    if(network.value == "MTN" && load.value == `*310*${read}#`) {
+        alert(`You have recharged ${network.value} of ${amount.value}`)
+        balance.innerHTML = `MTN Balance:${bal += Number(amount.value)}`
+        balance1.innerHTML = ""
+         balance2.innerHTML = ""
+         balance3.innerHTML = ""
+         result.innerHTML = ""
+    }else if(network.value == "GLO" ) {
+        alert(`You have recharged ${network.value} of ${amount.value}`)
+        balance1.innerHTML = `GLO Balance:${bal1 += Number(amount.value)}`
+        balance.innerHTML = ""
+         balance2.innerHTML = ""
+         balance3.innerHTML = ""
+         result.innerHTML = ""
+    } else if(network.value == "AIRTEL" ) {
+        alert(`You have recharged ${network.value} of ${amount.value}`)
+        balance2.innerHTML = `AIRTEL Balance:${bal2 += Number(amount.value)}`
+        balance.innerHTML = ""
+         balance1.innerHTML = ""
+         balance3.innerHTML = ""
+         result.innerHTML = ""
+    } else if(network.value == "9Mobile" ) {
+        alert(`You have recharged ${network.value} of ${amount.value}`)
+        balance3.innerHTML = `9Mobile Balance:${bal3 += Number(amount.value)}`
+        balance.innerHTML = ""
+         balance1.innerHTML = ""
+         balance2.innerHTML = ""
+         result.innerHTML = ""
+    } else if (network.value == "Select Option" ){
+        alert(`Invalid network provider`)
     }
-
-    function loadGloCard() {
-        let pin = document.getElementById("result").innerHTML
-        if(!load1.value.startsWith("*310") || !load1.value.endsWith("#") || !load1.value.includes(pin)) {
-            alert("Invalid Code")
-            load1.value = ""
-        } else if (network.value !== "GLO") {
-            alert("Invalid network provider")
-            load1.value = ""
-        } else {
-            alert(`You have recharged ${network.value} of ${amount.value}`)
-            load1.value = ""
-            result.innerHTML = ""
-            balance1.innerHTML = `${bal1 += Number(amount.value)}`
-            
-        }
+    else{
+        alert("Invalid Pin")
     }
-
-    function loadAirtelCard() {
-        let pin = document.getElementById("result").innerHTML
-        if(!load2.value.startsWith("*310") || !load2.value.endsWith("#") || !load2.value.includes(pin)) {
-            alert("Invalid Code")
-            load2.value = ""
-        } else if (network.value !== "AIRTEL") {
-            alert("Invalid network provider")
-            load2.value = ""
-        } else {
-            alert(`You have recharged ${network.value} of ${amount.value}`)
-            load2.value = ""
-            balance2.innerHTML = `${bal2 += Number(amount.value)}`
-            
-        }
-    }
-
-    function load9MobileCard() {
-        let pin = document.getElementById("result").innerHTML
-        if(!load3.value.startsWith("*310") || !load3.value.endsWith("#") || !load3.value.includes(pin)) {
-            alert("Invalid Code")
-            load3.value = ""
-        } else if (network.value !== "9Mobile") {
-            alert("Invalid network provider")
-            load3.value = ""
-        } else {
-            alert(`You have recharged ${network.value} of ${amount.value}`)
-            load3.value = ""
-            balance3.innerHTML = `${bal3 += Number(amount.value)}`
-            
-        }
-    }
-
+}
 </script>
 
 
